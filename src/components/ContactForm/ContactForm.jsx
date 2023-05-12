@@ -8,6 +8,12 @@ class ContactForm extends Component {
     number: '',
   };
 
+  handleContactSave = e => {
+    e.preventDefault();
+    this.props.formSubmit(this.state);
+    this.setState({ name: '', number: '' })
+  };
+
   handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value })
@@ -15,7 +21,7 @@ class ContactForm extends Component {
 
   render() {
     return (
-      <Form autoComplete="off" onSubmit={this.props.formSubmit}>
+      <Form autoComplete="off" onSubmit={this.handleContactSave}>
         <Label>
           Name
           <Input

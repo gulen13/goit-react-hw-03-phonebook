@@ -11,24 +11,22 @@ export class App extends Component {
     filter: '',
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    const { name, number } = event.target.elements;
+  handleSubmit = ({ name, number }) => {
     const { contacts } = this.state;
 
-    const existingName = contacts.some(item => item.name === name.value);
-    const existingNumber = contacts.find(item => item.number === number.value);
+    const existingName = contacts.some(item => item.name === name);
+    const existingNumber = contacts.find(item => item.number === number);
 
     if (existingName) {
-      return alert(`Contact "${name.value}" is already in contacts list`);
+      return alert(`Contact "${name}" is already in contacts list`);
     } else if (existingNumber) {
-      return alert(`Number "${number.value}" is already in contacts list`);
+      return alert(`Number "${number}" is already in contacts list`);
     }
 
     const newContact = {
       id: nanoid(),
-      name: name.value,
-      number: number.value,
+      name,
+      number
     };
     this.setState(prevState => {
       return { contacts: [newContact, ...prevState.contacts] };
